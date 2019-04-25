@@ -15,7 +15,7 @@
                     @endif
                     
                     <h1>Account type:</h1>
-                    <p>{{$role}}</p>
+                    <p>{{ $role }}</p>
                     You are logged in!
                 </div>
             </div>
