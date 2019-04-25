@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -35,6 +35,6 @@ class HomeController extends Controller
         }
 
         //return view('pages.index', compact('title'));
-        return view('home')->with('role', $role);
+        return view('dashboard')->with('role', $role);
     }
 }

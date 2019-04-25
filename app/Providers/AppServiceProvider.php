@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+
+// add this to avoid errors for strings
 use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // add this to avoid errors for strings
         Schema::defaultStringLength(191);
     }
 }
