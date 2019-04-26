@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ClassesController extends Controller
+use App\Course;
+
+class CoursesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +15,8 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::orderBy('user_id', 'desc')->paginate(10);
+        return view('courses.index') -> with('courses', $courses);
     }
 
     /**
@@ -23,7 +26,7 @@ class ClassesController extends Controller
      */
     public function create()
     {
-        //
+        return view('courses.create');
     }
 
     /**
@@ -34,7 +37,16 @@ class ClassesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validating form
+        $this->validate($request, [
+           'user_id' => 'required', 
+           'semester_id' => 'required',
+           'name' => 'required'
+        ]);
+
+        // Create post
+        $course = new Course;
+
     }
 
     /**
