@@ -16,6 +16,7 @@ Route::get('/about', 'PagesController@about');
 Route::get('/services', 'PagesController@services');
 Route::get('/dashboard', 'DashboardController@index');
 
+
 /* Resources */
 Auth::routes();
 Route::resource('courses', 'CoursesController');

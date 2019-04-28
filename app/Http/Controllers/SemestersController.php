@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Semester;
+use DB;
+
 class SemestersController extends Controller
 {
     /**
@@ -13,7 +16,8 @@ class SemestersController extends Controller
      */
     public function index()
     {
-        //
+        $semesters = Semester::all();
+        return view('semesters.index');
     }
 
     /**

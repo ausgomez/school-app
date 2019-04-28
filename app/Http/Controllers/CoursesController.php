@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Course;
+use DB;
 
 class CoursesController extends Controller
 {
@@ -15,8 +16,9 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $courses = Course::orderBy('user_id', 'desc')->paginate(10);
-        return view('courses.index') -> with('courses', $courses);
+        $courses = Course::all();
+        //return view('courses.index') 
+        return view('courses.index');
     }
 
     /**
@@ -46,6 +48,12 @@ class CoursesController extends Controller
 
         // Create post
         $course = new Course;
+        $course -> user_id = $request -> input('user_id');
+        $course -> name = $request -> input('name');
+        $course -> semester_id = $request -> input('semester_id');
+        $course -> save();
+
+        return redirect('/courses') -> with('success', 'Course Registered!');
 
     }
 
