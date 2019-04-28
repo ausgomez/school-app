@@ -21,3 +21,4 @@ Route::get('/dashboard', 'DashboardController@index');
 Auth::routes();
 Route::resource('courses', 'CoursesController');
 Route::resource('semesters', 'SemestersController');
+Route::resource('users', 'MyUsersController');

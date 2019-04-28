@@ -1,15 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
+use App\User; //import users
 
-use App\Course;
-use App\User;
-
-use DB;
-
-class CoursesController extends Controller
+class MyUsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +15,8 @@ class CoursesController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
-
-        //return view('courses.index') 
-        return view('courses.index') -> with('courses', $courses);
+        $users = User::all();
+        return view('myusers.index') -> with('users', $users);
     }
 
     /**
@@ -31,9 +26,7 @@ class CoursesController extends Controller
      */
     public function create()
     {
-        $teachers = User::where('role', 2);
-
-        return view('courses.create')->with('teachers', $teachers);
+        return view('myusers.create');
     }
 
     /**
@@ -46,20 +39,22 @@ class CoursesController extends Controller
     {
         // Validating form
         $this->validate($request, [
-           'user_id' => 'required', 
-           'semester_id' => 'required',
-           'name' => 'required'
-        ]);
-
-        // Create post
-        $course = new Course;
-        $course -> user_id = $request -> input('user_id');
-        $course -> name = $request -> input('name');
-        $course -> semester_id = $request -> input('semester_id');
-        $course -> save();
-
-        return redirect('/courses') -> with('success', 'Course Registered!');
-
+            'name' => 'required',  
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required'
+         ]);
+ 
+         // Create user
+         $user = new User;
+         $user -> name = $request -> input('name');
+         $user -> email = $request -> input('email');
+         /* To create the password we need to hash it first */
+         $user -> password = Hash::make($request -> input('password'));
+         $user -> role = $request -> input('role');
+         $user -> save();
+ 
+         return redirect('/users') -> with('success', 'User Registered!');
     }
 
     /**

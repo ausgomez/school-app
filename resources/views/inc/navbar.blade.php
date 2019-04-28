@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-laravel">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -32,11 +32,13 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/classes"> Classes </a>
+                            <a class="dropdown-item" href="/courses"> Courses </a>
                             <a class="dropdown-item" href="/semesters"> Semesters </a>
+                            <a class="dropdown-item" href="/users"> Users </a>
                             @if (Auth::user()->role === 3 /* Check is user is admin */)
                                 <a class="dropdown-item" href="/semesters"> Users </a>
                             @endif
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

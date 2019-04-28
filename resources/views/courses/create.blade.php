@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Register New Class</h1>
+    <h1>Register New Course</h1>
+
     {{ Form::open(['action' => 'CoursesController@store', 'method' => 'POST']) }}
         <div class="form-group">
-            {{Form::label('user_id', 'User')}}
-            {{Form::text('user_id', '', ['class' => 'form-control', 'placeholder' => 'User Id'])}}
+            {{Form::label('user_id', 'Teacher')}}
+            {{Form::select('user_id', $teachers -> pluck('name','id'), null, ['class' => 'form-control', 'placeholder' => 'Select a teacher'])}}
+            <a href="/users">Add a new teacher</a>
         </div>
         <div class="form-group">
-            {{Form::label('name', 'Class Name')}}
+            {{Form::label('name', 'Course Name')}}
             {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Class Name'])}}
         </div>
         <div class="form-group">
             {{Form::label('semester_id', 'Semester')}}
-            {{Form::text('semester_id', '', ['class' => 'form-control', 'placeholder' => 'Semester Id'])}}
+            {{Form::select('semester_id', App\Semester::pluck('semester','id'), null, ['class' => 'form-control', 'placeholder' => 'Select a semester'])}}
         </div>
 
         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
