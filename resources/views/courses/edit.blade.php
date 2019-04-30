@@ -3,7 +3,7 @@
 @section('content')
     <h1>Register New Course</h1>
 
-    {{ Form::open(['action' => 'CoursesController@update', 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['action' => ['CoursesController@update', $course->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) }}
         <div class="form-group">
             {{Form::label('user_id', 'Teacher')}}
             {{Form::select('user_id', $teachers -> pluck('name','id'), $course->user_id, ['class' => 'form-control', 'placeholder' => 'Select a teacher'])}}

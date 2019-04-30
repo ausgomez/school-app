@@ -15,16 +15,14 @@ class CoursesController extends Controller
     public function index()
     {
         $courses = Course::all();
-
-        //return view('courses.index') 
-        return view('courses.index') -> with('courses', $courses);
+        return view('courses.index', ['courses' => $courses]);
     }
 
     public function create()
     {
         $teachers = User::where('role', 2);
 
-        return view('courses.create')->with('teachers', $teachers);
+        return view('courses.create', ['teachers' => $teachers]);
     }
 
     public function store(Request $request)
@@ -43,7 +41,7 @@ class CoursesController extends Controller
         $course -> semester_id = $request -> input('semester_id');
         $course -> save();
 
-        return redirect('/courses') -> with('success', 'Course Registered!');
+        return redirect('/courses', ['success' => 'Course Registered!']);
 
     }
 
@@ -51,19 +49,19 @@ class CoursesController extends Controller
     {
         $course = Course::find($id);
 
-        return view("courses.show") -> with('course', $course);
+        return view("courses.show", ['course' => $course]);
     }
 
     public function edit($id)
     {
         $course = Course::find($id);
-        $teachers = User::where('role', 2);
+        $teachers = User::where('role', 2); //find all teachers
 
         // Check for correct user
         if(self::checkAdmin() || auth()->user()->id == $course -> user_id){
-            return view('courses.edit', ['course'=>$course, 'teachers'=>$teachers]);
+            return view('courses.edit', ['course' => $course, 'teachers' => $teachers]);
         }else{
-            return redirect('/courses') -> with('error', 'You cannot edit this course.');
+            return redirect('/courses', ['error' => 'You cannot edit this course.']);
         }
     }
     
@@ -72,7 +70,7 @@ class CoursesController extends Controller
 
         // Check for correct user
         if(!self::checkAdmin() || auth()->user()->id != $course -> user_id){
-            return redirect('/courses') -> with('error', 'You cannot edit this course.');
+            return redirect('/courses', ['error' => 'You cannot edit this course.']);
         }
 
         // Validating form
@@ -90,7 +88,7 @@ class CoursesController extends Controller
         $course -> save();
 
 
-        return redirect('/courses') -> with('success', 'Course Updated!');
+        return redirect('/courses', ['success' => 'Course Updated!']);
     }
 
     
@@ -104,10 +102,10 @@ class CoursesController extends Controller
         if(self::checkAdmin() || auth()->user()->id == $course -> user_id){
             
             $course -> delete();
-            return redirect('/courses') -> with('success', 'Course Deleted!');
+            return redirect('/courses', ['success' => 'Course Deleted!']);
             
         }else{
-            return redirect('/courses') -> with('error', 'You cannot delete this course.');
+            return redirect('/courses', ['error' => 'You cannot delete this course.']);
         }
 
         
