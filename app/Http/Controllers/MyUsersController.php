@@ -15,8 +15,11 @@ class MyUsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('myusers.index') -> with('users', $users);
+        $users = User::orderBy('role', 'asc') -> get();
+
+        return view('myusers.index', [
+            'users' => $users
+        ]);
     }
 
     /**
