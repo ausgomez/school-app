@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Register New User</h1>
-
+    
     {{ Form::open(['action' => 'MyUsersController@store', 'method' => 'POST']) }}
         <div class="form-group">
             {{Form::label('name', 'Name')}}

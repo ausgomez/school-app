@@ -34,9 +34,8 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/courses"> Courses </a>
                             <a class="dropdown-item" href="/semesters"> Semesters </a>
-                            <a class="dropdown-item" href="/users"> Users </a>
                             @if (Auth::user()->role === 3 /* Check is user is admin */)
-                                <a class="dropdown-item" href="/semesters"> Users </a>
+                                <a class="dropdown-item" href="/users"> Users </a>
                             @endif
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"

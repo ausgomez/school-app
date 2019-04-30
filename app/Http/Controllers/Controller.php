@@ -11,4 +11,14 @@ use App\User;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function checkAdmin(){
+        if(auth()->user()){
+            if (auth()->user()->role == 3){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }

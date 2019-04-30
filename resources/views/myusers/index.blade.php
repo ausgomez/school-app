@@ -2,6 +2,8 @@
 
 @section('content')
     <h1 class="display-4">Users</h1>
+    <a href="/users/create" class="btn btn-primary">Register User</a>
+    <p></p>
     <div class="row">
     @if(count($users) > 0)
         
