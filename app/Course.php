@@ -11,6 +11,16 @@ class Course extends Model
     
     /* Belongs to User */
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this -> belongsTo('App\User');
+    }
+
+    /* Belongs to Semester */
+    public function semester(){
+        return $this -> belongsTo('App\Semester');
+    }
+
+    /* Has many announcements */
+    public function announcements(){
+        return $this -> hasMany('App\Announcement');
     }
 }

@@ -23,7 +23,7 @@
     <div id="app">
         @include('inc.navbar')
         <p></p>
-        <div class="container jumbotron">
+        <div class="container">
             <br>
             @include('inc.messages')
             @yield('content')
