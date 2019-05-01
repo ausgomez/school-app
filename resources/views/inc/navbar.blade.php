@@ -14,6 +14,7 @@
                 <li class="nav-item"><a class="nav-link" href="/courses">{{ __('Courses') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="/users">{{ __('Users') }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="/semesters">{{ __('Semesters') }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">{{ __('About') }}</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

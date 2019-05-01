@@ -2,5 +2,9 @@
 
 @section('content')
     <h1>About</h1>
-    <p>This is the about page</p>
+    <br>
+    <h5>This web app was created by:</h5>
+    <p>Jorge Cisneros</p>
+    <p>David Garcia</p>
+    <p>Pedro Arreola</p>
 @endsection
