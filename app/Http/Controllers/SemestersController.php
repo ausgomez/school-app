@@ -17,7 +17,7 @@ class SemestersController extends Controller
     public function index()
     {
         $semesters = Semester::all();
-        return view('semesters.index');
+        return view('semesters.index', ['semesters' => $semesters]);
     }
 
     /**
@@ -27,7 +27,7 @@ class SemestersController extends Controller
      */
     public function create()
     {
-        //
+        return view('semesters.create');
     }
 
     /**
@@ -38,7 +38,23 @@ class SemestersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validating form
+        $this->validate($request, [
+            'semester' => 'required', 
+            'year' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+         ]);
+ 
+         // Create semester
+         $semester = new Semester;
+         $semester -> semester = $request -> input('semester');
+         $semester -> year = $request -> input('year');
+         $semester -> start_date = $request -> input('start_date');
+         $semester -> end_date = $request -> input('end_date');
+         $semester -> save();
+ 
+         return redirect('/semesters') -> with ('success', 'Semester Registered!');
     }
 
     /**
