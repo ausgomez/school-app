@@ -23,4 +23,5 @@ Route::resource('courses', 'CoursesController');
 Route::resource('semesters', 'SemestersController');
 Route::resource('users', 'MyUsersController');
 Route::resource('announcements', 'AnnouncementsController');
+Route::resource('user_courses', 'UserCoursesController');
 Route::resource('assignments', 'AssignmentsController');

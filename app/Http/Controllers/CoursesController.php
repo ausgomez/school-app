@@ -8,6 +8,7 @@ use App\Course;
 use App\Announcement;
 use App\Assignment;
 use App\User;
+use App\UserCourse;
 
 use DB;
 
@@ -50,10 +51,25 @@ class CoursesController extends Controller
     public function show($id)
     {
         $course = Course::find($id);
+        $students = User::where('role', 1);
         $annos = Announcement::where('course_id', $course -> id) -> where('active', true) -> orderBy('created_at', 'desc') -> get();
         $assigns = Assignment::where('course_id', $course -> id) -> orderBy('created_at', 'desc') -> get();
+        $usercourses = UserCourse::where('course_id', $course -> id) -> get();
 
-        return view('courses.show', ['course' => $course, 'annos' => $annos, 'assigns' => $assigns]);
+        //find all the users on the UserCourses
+        $student_ids = $students->pluck('id');
+        $usercourses_ids = $usercourses->pluck('user_id');
+        $new_students = $student_ids->diff($usercourses_ids);
+
+        $students = User::find($new_students);
+
+        return view('courses.show', [
+            'course' => $course, 
+            'annos' => $annos, 
+            'assigns' => $assigns,
+            'usercourses' => $usercourses,
+            'students' => $students
+            ]);
     }
 
     public function edit($id)

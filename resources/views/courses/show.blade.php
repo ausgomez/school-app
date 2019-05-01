@@ -71,7 +71,14 @@
 
             </div>
             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                
+                <h1>Students</h1>
+                <button type="button" class="btn btn-info text-white" data-toggle="modal" data-target="#newStuModal">
+                        New Student
+                    </button>
+                <p></p>
+                @foreach($usercourses as $student)
+                    <p>{{$student -> user -> name}}</p>
+                @endforeach
             </div>
             </div>
         </div>
@@ -138,6 +145,31 @@
                         <div class="form-group">
                             {{Form::label('grade', 'Max Grade')}}
                             {{Form::text('grade', '', ['class' => 'form-control'])}}
+                        </div>
+                        {{Form::hidden('course_id', $course -> id, ['class' => 'form-control'])}}
+                        {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+                    {{ Form::close() }}
+                </div>
+                </div>
+            </div>
+        </div>
+
+    
+        <!-- Modal -->
+    <div class="modal fade" id="newStuModal" tabindex="-1" role="dialog" aria-labelledby="newStuModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Student</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ Form::open(['action' => 'UserCoursesController@store', 'method' => 'POST']) }}
+                        <div class="form-group">
+                            {{Form::label('user_id', 'Student')}}
+                            {{Form::select('user_id', $students -> pluck('name','id'), null, ['class' => 'form-control', 'placeholder' => 'Select a student'])}}
                         </div>
                         {{Form::hidden('course_id', $course -> id, ['class' => 'form-control'])}}
                         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
