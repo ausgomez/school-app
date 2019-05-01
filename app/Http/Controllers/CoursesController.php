@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Course;
 use App\Announcement;
+use App\Assignment;
 use App\User;
 
 use DB;
@@ -50,8 +51,9 @@ class CoursesController extends Controller
     {
         $course = Course::find($id);
         $annos = Announcement::where('course_id', $course -> id) -> where('active', true) -> orderBy('created_at', 'desc') -> get();
+        $assigns = Assignment::where('course_id', $course -> id) -> orderBy('created_at', 'desc') -> get();
 
-        return view('courses.show', ['course' => $course, 'annos' => $annos]);
+        return view('courses.show', ['course' => $course, 'annos' => $annos, 'assigns' => $assigns]);
     }
 
     public function edit($id)

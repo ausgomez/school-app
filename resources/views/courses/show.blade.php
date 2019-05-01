@@ -46,6 +46,26 @@
             </div>
             <div class="tab-pane fade" id="v-pills-assignments" role="tabpanel" aria-labelledby="v-pills-assignments-tab">
                 
+                <h1>Assignments</h1>
+                <br>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-info text-white" data-toggle="modal" data-target="#newAssModal">
+                    New Asignment
+                </button>
+                <p></p>
+                @foreach($assigns as $ass)
+                    <div class="card text-white bg-primary mb-3">
+                        <div class="card-header">
+                            {{$ass -> name}}
+                            <small class="float-right">{{$ass -> created_at}}</small>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{$ass -> instructions}}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
             <div class="tab-pane fade" id="v-pills-grades" role="tabpanel" aria-labelledby="v-pills-grades-tab">
 
@@ -85,5 +105,46 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="newAssModal" tabindex="-1" role="dialog" aria-labelledby="newAssModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Assignmet</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ Form::open(['action' => 'AssignmentsController@store', 'method' => 'POST']) }}
+                        <div class="form-group">
+                                {{Form::label('type', 'Type')}}
+                                {{Form::select('type', [1 => 'Homework', 2 => 'Quiz', 3 => 'Exam'], 1, ['class' => 'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('name', 'Title')}}
+                            {{Form::text('name', '', ['class' => 'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('instructions', 'Instructions')}}
+                            {{Form::textarea('instructions', '', ['class' => 'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('due_date', 'Due Date')}}
+                            {{Form::date('due_date', '', ['class' => 'form-control'])}}
+                        </div>
+                        <div class="form-group">
+                            {{Form::label('grade', 'Max Grade')}}
+                            {{Form::text('grade', '', ['class' => 'form-control'])}}
+                        </div>
+                        {{Form::hidden('course_id', $course -> id, ['class' => 'form-control'])}}
+                        {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+                    {{ Form::close() }}
+                </div>
+                </div>
+            </div>
+        </div>
 
 @endsection

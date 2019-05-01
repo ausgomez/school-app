@@ -23,4 +23,9 @@ class Course extends Model
     public function announcements(){
         return $this -> hasMany('App\Announcement');
     }
+
+    /* Has many assignments */
+    public function assignments(){
+        return $this -> hasMany('App\Assignment');
+    }
 }
