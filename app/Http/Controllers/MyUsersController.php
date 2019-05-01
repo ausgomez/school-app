@@ -90,7 +90,10 @@ class MyUsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        
+        
+        return view('myusers.edit', ['user' => $user]);
     }
 
     /**
@@ -102,7 +105,25 @@ class MyUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validating form
+        $this->validate($request, [
+            'name' => 'required',  
+            'email' => 'required',
+            'role' => 'required'
+         ]);
+
+         // Find user
+         $user = User::find($id);
+         $user -> name = $request -> input('name');
+         $user -> email = $request -> input('email');
+         /* To create the password we need to hash it first */
+         if($request -> input('password') != ""){
+            $user -> password = Hash::make($request -> input('password'));
+         }
+         $user -> role = $request -> input('role');
+         $user -> save();
+ 
+         return redirect('/users') -> with('success', 'User Updated!');
     }
 
     /**
