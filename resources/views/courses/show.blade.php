@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Welcome to {{ $course -> name }}</h5>
                         <p class="card-text">My name is {{$course -> user -> name}}, and I am your instructor for this course.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="/users/{{ $course -> user_id }}" class="btn btn-primary">View Profile</a>
                     </div>
                 </div>
                 <br>
@@ -34,7 +34,7 @@
                     <div class="card text-white bg-primary mb-3">
                         <div class="card-header">
                             {{$ann -> title}}
-                            <small class="float-right">{{$ann -> created_at}}</small>
+                            <small class="float-right">Posted on: {{$ann -> created_at}}</small>
                         </div>
                         <div class="card-body">
                             <p class="card-text">
@@ -54,15 +54,18 @@
                 </button>
                 <p></p>
                 @foreach($assigns as $ass)
-                    <div class="card text-white bg-primary mb-3">
+                    <div class="card bg-light mb-3 text-center">
                         <div class="card-header">
                             {{$ass -> name}}
-                            <small class="float-right">{{$ass -> created_at}}</small>
+                            <small class="float-right">Posted on: {{$ass -> created_at}}</small>
                         </div>
                         <div class="card-body">
                             <p class="card-text">
                                 {{$ass -> instructions}}
                             </p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Due Date: {{ $ass -> due_date }}
                         </div>
                     </div>
                 @endforeach

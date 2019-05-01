@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 use App\User; //import users
+use App\Course;
+use App\UserCourse;
 
 class MyUsersController extends Controller
 {
@@ -68,7 +70,16 @@ class MyUsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $courses = null;
+
+        if ($user -> role == 1){
+            $courses = UserCourse::where('user_id', $user->id) -> get();
+        }elseif ($user -> role == 2){
+            $courses = Course::where('user_id', $user->id) -> get();
+        }
+
+        return view('myusers.show', ['user' => $user, 'courses' => $courses]);
     }
 
     /**

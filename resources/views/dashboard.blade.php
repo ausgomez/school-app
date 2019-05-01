@@ -32,35 +32,44 @@
             </div>
         </div>
 
+        @if (Auth::user()->role != 3)
         <div class="col-md-8">
             <h1>My Classes</h1>
-            <div class="card bg-light mb-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h5 class="card-title">MATH 2414 - Spring 2019</h5>
-                            <p class="card-text">Instructor: Martin James</p>
-                        </div>
-                        <div class="col-md-3">
-                            <a class="btn btn-primary float-right" href="#" role="button">Go <span class="badge badge-light">4</span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card bg-light mb-3">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <h5 class="card-title">MATH 2414 - Spring 2019</h5>
-                            <p class="card-text">Instructor: Martin James</p>
-                        </div>
-                        <div class="col-md-3">
-                            <a class="btn btn-primary float-right" href="#" role="button">Go <span class="badge badge-light">4</span></a>
+            @if(Auth::user()->role == 1)
+                @foreach($courses as $course)
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 class="card-title">{{ $course -> course -> name}} - {{ $course -> course -> semester -> semester}} </h5>
+                                <p class="card-text">Instructor: {{ $course -> course -> user -> name}}</p>
+                            </div>
+                            <div class="col-md-3">
+                            <a class="btn btn-primary float-right" href="/courses/{{$course -> id}}" role="button">Go <span class="badge badge-light">{{ App\Assignment::where('course_id', $course -> id)-> count()}}</span></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                @endforeach
+            @elseif(Auth::user()->role == 2)
+                @foreach($courses as $course)
+                <div class="card bg-light mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 class="card-title">{{ $course -> name}} - {{ $course -> semester -> semester}} </h5>
+                            </div>
+                            <div class="col-md-3">
+                            <a class="btn btn-primary float-right" href="/courses/{{$course -> id}}" role="button">Go <span class="badge badge-light">{{ App\Assignment::where('course_id', $course -> id)-> count()}}</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            @endif
+            
         </div>
+        @endif
     </div>
 </div>
 @endsection
