@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -23,15 +25,15 @@ class DashboardController extends Controller
      */
     public function index()
     {        
-        $id = \Auth::user()->id;
+        $user = Auth::user();
         $role = 'N/A';
 
-        if ($id === 1) {
-            $role = 'student';
-        }else if ($id === 2) {
-            $role = 'teacher';
-        }else if ($id === 3) {
-            $role = 'admin';
+        if ($user->role === 1) {
+            $role = 'Student';
+        }else if ($user->role === 2) {
+            $role = 'Instructor';
+        }else if ($user->role === 3) {
+            $role = 'ADMIN';
         }
 
         //return view('pages.index', compact('title'));
